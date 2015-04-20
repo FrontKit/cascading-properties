@@ -4,7 +4,8 @@
   "description": "Define virtual properties for HTML elements using CSS selectors.",
   "main": "index.js",
   "scripts": {
-    "test": " zuul --local 9000 --ui mocha-bdd test/index.js"
+    "test": "zuul -- test",
+    "test-locally": " zuul --local 9000 --ui mocha-bdd test"
   },
   "repository": {
     "type": "git",

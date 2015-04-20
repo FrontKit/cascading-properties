@@ -1,0 +1,6 @@
+ui: mocha-bdd
+browsers:
+  - name: chrome
+    version: 27..latest
+  - name: ie
+    version: latest
