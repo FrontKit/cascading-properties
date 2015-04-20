@@ -1,4 +1,4 @@
-# Cascading Properties
+# Cascading Properties [![Build Status](https://travis-ci.org/raphaelsaunier/cascading-properties.svg)](https://travis-ci.org/raphaelsaunier/cascading-properties)
 
 Define virtual properties for HTML elements using CSS selectors.
 
@@ -45,7 +45,7 @@ We can then retrieve the values by passing the reference to the element and the 
 to the `getValue` method. The property value with the highest selector specificity will be returned:
 
 ```js
-// Turn our HTML string into DOM elements using https://github.com/component/domify
+// Turn a test HTML string into DOM elements using https://github.com/component/domify
 var ul = domify('<ul><li>Hello</li><li>World</li></ul>');
 
 properties.getValue(ul,             'someProperty')       // => 0
