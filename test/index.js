@@ -2,6 +2,7 @@
 
 var assert = require('assert');
 var domify = require('domify');
+var isEqual = require('lodash/lang/isEqual');
 var CascadingProperties = require('..');
 
 describe('cascading-properties', function() {
@@ -39,6 +40,9 @@ describe('cascading-properties', function() {
     var propertyDefinitions = {
       someProperty: {
         defaultValue: 0
+      },
+      somePropertyWithDefaultValue: {
+        defaultValue: 4,
       },
       someOtherProperty: {
         inherited: true
@@ -85,6 +89,12 @@ describe('cascading-properties', function() {
 
     it('should return null for undefined properties', function() {
       assert.equal(properties.getValue(ul, 'undefinedProperty'), null);
+    });
+
+    it('should return all the properties defined on an element', function(){
+      var definedProperties = properties.getAll(ul.lastChild);
+      var expectedProperties = {someProperty:3, someOtherProperty:true, somePropertyWithDefaultValue: 4};
+      assert.equal(isEqual(definedProperties, expectedProperties), true);
     });
 
   })
