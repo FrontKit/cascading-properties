@@ -1,6 +1,6 @@
 {
   "name": "cascading-properties",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "Define virtual properties for HTML elements using CSS selectors.",
   "main": "index.js",
   "scripts": {
