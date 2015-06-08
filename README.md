@@ -55,3 +55,7 @@ properties.getValue(ul.lastChild,   'someProperty')       // => 3
 properties.getValue(ul.firstChild,  'someOtherProperty')  // => true
 properties.getValue(ul,             'undefinedProperty')  // => null
 ```
+
+## Related Projects
+
+- [yearofmoo/custom-props](https://github.com/yearofmoo/custom-props): Works by storing the custom properties in the `content`  CSS property with a workaround for IE
