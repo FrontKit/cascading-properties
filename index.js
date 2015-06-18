@@ -3,7 +3,6 @@
 var matches    = require('component-matches-selector');
 var specimen   = require('specimen');
 
-// Helper function
 function isDefined(variable) { return typeof variable !== 'undefined'; }
 
 /**
@@ -35,7 +34,8 @@ function CascadingPropertySet(properties, rules) {
  * @param propertyDefinitions object
  */
 CascadingPropertySet.prototype.addProperties = function(propertyDefinitions) {
-  for (var propertyName in propertyDefinitions) {
+  // TODO: Rewrite by using Object.keys() http://jsperf.com/hasownproperty-performance-analysis/2
+ for (var propertyName in propertyDefinitions) {
     if (propertyDefinitions.hasOwnProperty(propertyName)) {
       this.properties[propertyName] = propertyDefinitions[propertyName];
     }
@@ -127,13 +127,10 @@ CascadingPropertySet.prototype.addRule = function(selectors, properties) {
  * @returns {*}
  */
 CascadingPropertySet.prototype.getValue = function(element, propertyName) {
-
-  var propertyDefinition = isDefined(this.properties[propertyName]) ? this.properties[propertyName] : {};
-
   // Default value
   var matchedProperty = {
     specificity:  0,
-    value:        isDefined(propertyDefinition.defaultValue) ? propertyDefinition.defaultValue : null
+    value:        null
   };
 
   // Iterate over the list of properties and return the value whose selector has the highest specificity
@@ -154,9 +151,15 @@ CascadingPropertySet.prototype.getValue = function(element, propertyName) {
     }
   }
 
-  // If no matched property was found but the property is inherited, try to get the parent's value
-  if (matchedProperty.value === null && propertyDefinition.inherited && element.parentElement){
-    return this.getValue(element.parentElement, propertyName);
+  if (matchedProperty.value === null){
+    var propertyDefinition = isDefined(this.properties[propertyName]) ? this.properties[propertyName] : {};
+    if(element.parentElement){
+      // If no matched property was found but the property is inherited, try to get the parent's value
+      if(propertyDefinition.inherited) return this.getValue(element.parentElement, propertyName);
+    } else {
+      // If the element has no parent, try to retrieve the default value
+      matchedProperty.value = isDefined(propertyDefinition.defaultValue) ? propertyDefinition.defaultValue : null;
+    }
   }
 
   return matchedProperty.value;
